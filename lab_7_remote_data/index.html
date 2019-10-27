@@ -1,47 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Test AJAX page</title>
+    <link rel="stylesheet" type="text/css" href="./lab_styles.css" />
+  </head>
 
-<head>
-  <title>Test AJAX page</title>
-  <link rel="stylesheet" type="text/css" href="./lab_styles.css">
-</head>
-
-<body>
-  <div class="container">
-    <div class="wrapper">
-      <div class="header">UMD Bus Routes</div>
-      <button class="button" onclick="loadData()">Load Some JSON</button>
-      <div class="content"> <ul></ul>
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <div class="header">UMD Bus Routes</div>
+        <button class="button" onclick="loadData()">Load Some JSON</button>
+        <div class="content"><ul></ul></div>
+        <div class="footer"></div>
       </div>
-      <div class="footer"></div>
     </div>
-  </div>
-  <script>
-    function loadData() {
-      fetch('https://api.umd.io/v0/bus/routes')
-        .then(res => res.json())
-        .then(res => {
-          // you can now work in this area
-          console.log(res);
-         // return res[24].title; //This just shows that I can get that object 
-        let text = "<ul>";
-        let num = 0;
+    <script>
+      function loadData() {
+        fetch("https://api.umd.io/v0/bus/routes")
+          .then(res => res.json())
+          .then(res => {
+            // you can now work in this area
+            console.log(res);
+            let text = "<ul>";
+            let num = 0;
 
-        for (i = 0; i < 25; i++) {
-          text += "<li>" + res[i].title + ", CODE " +res[i].route_id  + "</li>";
-        }
-        text += "</ul>";
+            for (i = 0; i < 25; i++) {
+              text +=
+                "<li>" + res[i].title + ", CODE " + res[i].route_id + "</li>";
+            }
+            text += "</ul>";
 
-        document.getElementsByTagName("ul")[0].innerHTML = text;
-          return text;
-          //return res;
-        }) 
-        .then(res => res) // here we're just passing along res in a shorter format
-       // .then(res => res.map(c => c.route_id)) // // Gotta know what values are available on the response - get this from your API
-        //.then(data => document.querySelector(".content").innerText = data)
-        .catch((err) => {console.log(err)});
-    }
-  </script>
-</body>
-
+            document.getElementsByTagName("ul")[0].innerHTML = text;
+            return res;
+          })
+          .then(res => res) // here we're just passing along res in a shorter format
+          .then(res => {
+            result = res.find(({ route_id }) => route_id === "105");
+            console.log(result);
+            document.getElementsByTagName("div")[2].innerHTML =
+              "UMD Bus route" + result.title;
+            return result;
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    </script>
+  </body>
 </html>
