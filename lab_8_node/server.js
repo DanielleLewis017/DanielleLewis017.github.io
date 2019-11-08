@@ -42,9 +42,10 @@ app.use(express.static('public'));
 // this is, right now, an introduction to Callback Hell
 // but it is okay for a first-level example
 app.get('/api', (req, res) => {
-  const baseURL = 'https://api.umd.io/v0/bus/routes';
+  const baseURL = 'https://api.umd.io/v0/courses/list';
   fetch(baseURL)
     .then((r) => r.json())
+    .then((data) => data.filter((f) => f.dept_id === 'INST'))
     .then((data) => {
       console.log(data);
       res.send({ data: data });
@@ -56,3 +57,4 @@ app.get('/api', (req, res) => {
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
