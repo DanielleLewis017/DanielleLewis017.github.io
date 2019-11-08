@@ -21,13 +21,14 @@
       fetch('/api')
         .then(res => res.json())
         .then(res => {
+
           console.log(res); // logging step to check what we got
           return res;
         })
-        .then(res => res.data.map(c => c.route_id))
+        .then(res => res.data.map(c => c.course_id + c.name))
         .then(codes => document.querySelector(".content").innerText = codes);
     }
   </script>
 </body>
 
-</html>
+</html> 
