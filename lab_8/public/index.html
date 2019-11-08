@@ -36,9 +36,7 @@
             return res;
           })
           .then(res => res.data.map(c => c.course_id + c.name))
-          .then(
-            codes => (document.querySelector(".content").innerText = codes)
-          );
+          
       }
     </script>
   </body>
